@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-BASE_URL = 'http://localhost:8000'
+BASE_URL = 'http://localhost:8000/app'
 
 
 # Application definition
@@ -35,10 +35,12 @@ BASE_URL = 'http://localhost:8000'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     "verify_email.apps.VerifyEmailConfig",
     
     'myhome'
 ]

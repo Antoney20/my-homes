@@ -5,7 +5,8 @@ from .import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("register", views.register, name="register"),
-    path('verify/<str:verification_token>/', views.verify_email, name='verify_email'),
+    path('verify/<str:verification_token>/', views.verify, name='verify'),
+    path('update_profile/', views.update_profile, name='update_profile'),
 ]
 
 

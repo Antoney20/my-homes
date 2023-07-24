@@ -10,3 +10,13 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    account_type = models.CharField(max_length=50, choices=[('Free', 'Free'), ('Premium', 'Premium')], default='Free')
+    image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username

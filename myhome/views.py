@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 import requests
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import User
+from .models import User, Profile
 import hashlib
 
 # Create your views here.
@@ -19,7 +19,7 @@ def register(request):
         password = request.POST['password']
         
         if User.objects.filter(email=email).exists():
-            return render(request, 'myhome/register.html', {'error_message': 'Email already registered.'})
+            return redirect('update_profile')
 
         verification_token = hashlib.sha256(f'{email}{username}'.encode()).hexdigest()
         
@@ -40,7 +40,7 @@ def register(request):
     
     return render(request, 'myhome/register.html')
 
-def verify_email(request, verification_token):
+def verify(request, verification_token):
     try:
         # Find the user with the given verification token
         user = User.objects.get(is_email_verified=False, verification_token=verification_token)
@@ -49,7 +49,25 @@ def verify_email(request, verification_token):
         user.save()
     except User.DoesNotExist:
         return HttpResponse('Failed to verify email')
-    return redirect('index')
+    return redirect('update_profile')
+
+def update_profile(request):
+    try:
+        profile = request.user
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+
+    if request.method == 'POST':
+        profile.first_name = request.POST.get('first_name', '')
+        profile.last_name = request.POST.get('last_name', '')
+        profile.account_type = request.POST.get('account_type', '')
+        image = request.FILES.get('image')
+        if image:
+            profile.image = image
+        profile.save()
+        return redirect('profile')
+
+    return render(request, 'myhomes/update_profile.html', {'profile': profile})
     
 
 
