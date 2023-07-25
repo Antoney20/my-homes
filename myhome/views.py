@@ -66,23 +66,23 @@ def verify(request, verification_token):
         return HttpResponse('Failed to verify email')
     return redirect('update_profile')
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST['username']
+        password = request.POST['password']
 
+        # Authenticate
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # Authentication successful, login user
             login(request, user)
-            return redirect('index')  # 
+            return redirect('index')
 
-        else:
-            # Authentication failed, show login page with error message
-           return redirect('index')  
-    else:
-        return render(request, 'myhome/login.html')
+        # If the user is  !authenticated, display an error message
+        error_message = "Invalid username or password."
+        return render(request, 'myhome/login.html', {'error_message': error_message, 'username': 'anonymous'})
+    #so far so  good
+    return render(request, 'myhome/login.html')
     
 def logout_user(request):
     logout(request)
