@@ -36,9 +36,18 @@
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            {% if logged_in %}
             <div class="nav-item">
-              <span class="nav-link">Welcome,</span>
+                <span class="nav-link">Welcome, {{ user }}</span>
             </div>
+            <div class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </div>
+            {% else %}
+            <div class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </div>
+            {% endif %}
             <div class="nav-item">
             <button class="btn btn-outline-primary"> <a class="nav-link" href="{% url 'submitproperty' %}">Add listings</a></button>
             </div>

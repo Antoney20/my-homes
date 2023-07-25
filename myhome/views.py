@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 import requests
 from django.core.mail import send_mail
 from django.conf import settings
@@ -9,10 +11,20 @@ import hashlib
 
 # Create your views here.
 
+@login_required
 def index(request):
     properties = SubmitProperty.objects.all()
-    return render(request, 'myhome/index.html', {'properties': properties})
+    user = request.user
     
+    context = {
+        'properties': properties,
+        'user': user,   
+        'logged_in': True,  
+    }
+    if user.is_authenticated:
+        return render(request, 'myhome/index.html', context)
+    else:
+        return render(request, 'myhome/index.html', {'properties': properties, 'logged_in': False})
     
 def register(request):
     if request.method == 'POST':
@@ -54,6 +66,29 @@ def verify(request, verification_token):
         return HttpResponse('Failed to verify email')
     return redirect('update_profile')
 
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Authentication successful, login user
+            login(request, user)
+            return redirect('index')  # 
+
+        else:
+            # Authentication failed, show login page with error message
+           return redirect('index')  
+    else:
+        return render(request, 'myhome/login.html')
+    
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+    
+
 def update_profile(request):
     try:
         profile = request.user
@@ -70,7 +105,7 @@ def update_profile(request):
         profile.save()
         return redirect('profile')
 
-    return render(request, 'myhomes/update_profile.html', {'profile': profile})
+    return render(request, 'myhome/update_profile.html', {'profile': profile})
     
 
 
