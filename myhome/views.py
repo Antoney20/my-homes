@@ -3,13 +3,16 @@ from django.shortcuts import render,redirect
 import requests
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import User, Profile
+from .models import User, Profile, SubmitProperty
+from .forms import SubmitPropertyForm
 import hashlib
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'myhome/index.html')
+    properties = SubmitProperty.objects.all()
+    return render(request, 'myhome/index.html', {'properties': properties})
+    
     
 def register(request):
     if request.method == 'POST':
@@ -71,3 +74,14 @@ def update_profile(request):
     
 
 
+def submit_property(request):
+    if request.method == 'POST':
+        form = SubmitPropertyForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Save the form data to the database
+            form.save()
+            return HttpResponse('Succcess') # Redirect to a success page after successful submission
+    else:
+        form = SubmitPropertyForm()
+
+    return render(request, 'myhome/submit_property.html', {'form': form})
