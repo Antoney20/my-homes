@@ -7,8 +7,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import User, Profile, SubmitProperty
 from .forms import SubmitPropertyForm
+from django.http import HttpResponse
 import hashlib
-
+# property detail
+from django.http import Http404
 # Create your views here.
 
 @login_required
