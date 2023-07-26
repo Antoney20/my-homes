@@ -1,0 +1,47 @@
+{% extends 'myhome/base.html' %}
+
+{% block  content %}
+        <h1>{{ property.title }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ property.image1.url }}" alt="Property Image" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h4>Property Type: {{ property.property_type }}</h4>
+                <p>Price: ${{ property.price }}</p>
+                <p>City: {{ property.city }}</p>
+                <p>State: {{ property.state }}</p>
+                <p>Total Rooms: {{ property.total_rooms }}</p>
+                <p>Area Size: {{ property.area_size }} sq. ft.</p>
+                <p>Status: {{ property.status }}</p>
+                <p>Address: {{ property.address }}</p>
+                <!-- Add more property details as needed -->
+            </div>
+                        <!-- Specific Description -->
+            <div class="col-md-6">
+                <h3>Specific Description</h3>
+                <p>{{ property.specific_description }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Related Items -->
+            <div class="col-md-12">
+                <h3>Related Items</h3>
+                <div class="card-group">
+                    {% for related_item in related_properties %}
+                        <div class="card">
+                            <img src="{{ related_item.image1.url }}" class="card-img-top" alt="Property Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ related_item.title }}</h5>
+                                <p class="card-text">{{ related_item.property_type }}</p>
+                                <p class="card-text">${{ related_item.price }}</p>
+                                <a href="/properties/{{ related_item.id }}" class="card-link">View Details</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+{% endblock  %}

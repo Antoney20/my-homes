@@ -11,16 +11,20 @@ from django.http import HttpResponse
 import hashlib
 # property detail
 from django.http import Http404
+from django.shortcuts import render, get_object_or_404
+from .models import SubmitProperty
 # Create your views here.
 
 @login_required
 def index(request):
     properties = SubmitProperty.objects.all()
     user = request.user
+    name='index page'
     
     context = {
         'properties': properties,
-        'user': user,   
+        'user': user,
+        'name': name,   
         'logged_in': True,  
     }
     if user.is_authenticated:
@@ -122,3 +126,23 @@ def submit_property(request):
         form = SubmitPropertyForm()
 
     return render(request, 'myhome/submit_property.html', {'form': form})
+
+def property_details(request, SubmitProperty_id):
+    propertys= get_object_or_404(SubmitProperty, pk=SubmitProperty_id)
+    user = request.user
+    name= 'Property details'
+        # Filter related properties
+    property_type = propertys.property_type
+    related_properties = SubmitProperty.objects.filter(property_type=property_type).exclude(pk=SubmitProperty_id)
+    
+    
+    context = {
+        'property': propertys,
+        'name': name,
+        'user': user,
+        'related_properties': related_properties,
+    }
+    if user.is_authenticated:
+        return render(request, 'myhome/property_detail.html', context)
+    else:
+        return render(request, 'myhome/property_detail.html', {'properties': properties, 'logged_in': False})

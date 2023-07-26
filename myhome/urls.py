@@ -10,6 +10,7 @@ urlpatterns = [
     path('verify/<str:verification_token>/', views.verify, name='verify'),
     path('update_profile/', views.update_profile, name='update_profile'),
     path('submitproperty/', views.submit_property, name='submitproperty'),
+    path('property/<int:SubmitProperty_id>/', views.property_details, name='property_details'),
 ]
 
 
