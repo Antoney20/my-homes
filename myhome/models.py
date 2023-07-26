@@ -1,27 +1,42 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
+import uuid
+from django.utils import timezone
 
 
 # Create your models here.
 
 class User(models.Model):
-    username = models.CharField(max_length=150)
+    username = models.CharField(max_length=150,unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     is_email_verified = models.BooleanField(default=False)
-
+    verification_token = models.CharField(max_length=64, blank=True, null=True)
+    verification_token_expiration = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.username
-    
+    verification_token_expiration = models.DateTimeField(blank=True, null=True)
+
+    def generate_verification_token(self):
+        # Generate a unique verification token
+        self.verification_token = uuid.uuid4().hex
+        # Set the expiration time to 5 minutes from the current time
+        self.verification_token_expiration = timezone.now() + timezone.timedelta(minutes=5)
+        self.save()
+
+    def is_verification_token_valid(self):
+        # Check if the verification token has expired
+        return timezone.now() < self.verification_token_expiration
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
-    account_type = models.CharField(max_length=50, choices=[('Free', 'Free'), ('Premium', 'Premium')], default='Free')
+    account_type = models.CharField(max_length=50, choices=[('User', 'User'), ('Agent', 'Agent')], default='User')
     image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
+    
     
 
 class SubmitProperty(models.Model):

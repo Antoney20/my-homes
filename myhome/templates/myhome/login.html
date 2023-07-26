@@ -18,6 +18,11 @@
                                 {{ error_message }}
                             </div>
                             {% endif %}
+                            {% if alert_message %}
+                            <script>
+                                alert("{{ alert_message }}");
+                            </script>
+                            {% endif %}
                             <div class="form-group">
                                 <label for="username">Username:</label>
                                 <input type="text" class="form-control" id="username" name="username"placeholder="Enter your username">
