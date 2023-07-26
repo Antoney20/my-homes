@@ -151,3 +151,13 @@ def property_details(request, SubmitProperty_id):
         return render(request, 'myhome/property_detail.html', context)
     else:
         return render(request, 'myhome/property_detail.html', {'properties': properties, 'logged_in': False})
+    
+    
+#agents
+def agent(request):
+    agents = SubmitProperty.objects.values_list('agent', flat=True).distinct()
+
+    # Pass the agents to the template for rendering
+    context = {'agents': agents}
+    return render(request, 'myhome/agent.html', context)
+    

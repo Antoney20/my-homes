@@ -1,0 +1,6 @@
+{% extends 'myhome/base.html' %}
+{% block content %}
+{% for agent_name in agents %}
+<li>{{ agent_name }}</li>
+{% endfor %}
+{% endblock %}
