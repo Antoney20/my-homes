@@ -11,7 +11,7 @@ urlpatterns = [
     path('update_profile/', views.update_profile, name='update_profile'),
     path('submitproperty/', views.submit_property, name='submitproperty'),
     path('property/<int:SubmitProperty_id>/', views.property_details, name='property_details'),
-    path("agents/", views.agent, name="agent"),
+    path('agent/<int:user_id>/', views.agent, name='agent'),
 ]
 
 

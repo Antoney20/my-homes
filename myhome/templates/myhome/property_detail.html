@@ -5,10 +5,12 @@
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ property.image1.url }}" alt="Property Image" class="img-fluid">
+                <button class="btn btn-primary">Book now</button>
             </div>
             <div class="col-md-6">
                 <h4>Property Type: {{ property.property_type }}</h4>
                 <p>Price: ${{ property.price }}</p>
+                <p> Agent name: {{ agent }}</a></p>
                 <p>City: {{ property.city }}</p>
                 <p>State: {{ property.state }}</p>
                 <p>Total Rooms: {{ property.total_rooms }}</p>
@@ -17,7 +19,7 @@
                 <p>Address: {{ property.address }}</p>
                 <!-- Add more property details as needed -->
             </div>
-                        <!-- Specific Description -->
+                        
             <div class="col-md-6">
                 <h3>Specific Description</h3>
                 <p>{{ property.specific_description }}</p>

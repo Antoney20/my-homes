@@ -138,12 +138,16 @@ def property_details(request, SubmitProperty_id):
         # Filter related properties
     property_type = propertys.property_type
     related_properties = SubmitProperty.objects.filter(property_type=property_type).exclude(pk=SubmitProperty_id)
+    agent = propertys.user.username
+    agent_id = propertys.user.id
     
     
     context = {
         'property': propertys,
         'name': name,
         'user': user,
+        'agent': agent,
+        'agent_id': agent_id,
         'logged_in': True, 
         'related_properties': related_properties,
     }
@@ -154,10 +158,8 @@ def property_details(request, SubmitProperty_id):
     
     
 #agents
-def agent(request):
-    agents = SubmitProperty.objects.values_list('agent', flat=True).distinct()
-
-    # Pass the agents to the template for rendering
-    context = {'agents': agents}
+def agent(request, user_id):
+    agent = get_object_or_404(User, id=user_id)
+    properties = SubmitProperty.objects.filter(user=agent)
+    context = {'agent': agent, 'properties': properties}
     return render(request, 'myhome/agent.html', context)
-    
