@@ -1,0 +1,15 @@
+{% extends 'myhome/base.html' %}
+{% block content %}
+<h1>All Agents</h1>
+{% for agent in agents %}
+    <div class="agent-info">
+        <h2>{{ agent.username }}</h2>
+
+    
+        <p>Number of Properties: {{ agent.num_properties }}</p>
+        <p>Phone Number:</p>
+    </div>
+{% empty %}
+    <p>No agents found.</p>
+{% endfor %}
+{% endblock%}
