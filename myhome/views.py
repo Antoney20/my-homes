@@ -126,7 +126,7 @@ def submit_property(request):
         form = SubmitPropertyForm()
 
     return render(request, 'myhome/submit_property.html', {'form': form})
-
+@login_required
 def property_details(request, SubmitProperty_id):
     propertys= get_object_or_404(SubmitProperty, pk=SubmitProperty_id)
     user = request.user
@@ -140,6 +140,7 @@ def property_details(request, SubmitProperty_id):
         'property': propertys,
         'name': name,
         'user': user,
+        'logged_in': True, 
         'related_properties': related_properties,
     }
     if user.is_authenticated:
