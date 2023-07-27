@@ -8,6 +8,8 @@ urlpatterns = [
     path("login/", views.login_user, name="login"),
     path("logout/", myhomev.logout_user, name="logout"),
     
+    path('my_profile/', views.my_profile, name='my_profile'),
+    
     path('verify/<str:verification_token>/', views.verify, name='verify'),
     #profile
     path('update_profile/', views.update_profile, name='update_profile'),

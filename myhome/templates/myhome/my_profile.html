@@ -1,0 +1,23 @@
+{% extends 'myhome/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>My Profile</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>First Name: {{ profile.first_name }}</h5>
+            <h5>Last Name: {{ profile.last_name }}</h5>
+            <h5>Email: {{ profile.email }}</h5>
+            <h5>Phone Number: {{ profile.phone_number }}</h5>
+        </div>
+        <div class="col-md-6">
+            {% if profile.image %}
+                <img src="{{ profile.image.url }}" class="img-thumbnail" alt="Profile Image">
+            {% else %}
+                <p>No profile image available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

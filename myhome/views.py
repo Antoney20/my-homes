@@ -98,7 +98,13 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
-    
+ 
+def my_profile(request):
+    user = request.user
+    profile = Profile.objects.get(username=user)
+    print("*************************")
+    print(profile)
+    return render(request, 'myhome/my_profile.html', {'profile': profile})   
 
 def update_profile(request):
     try:

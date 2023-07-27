@@ -15,6 +15,7 @@ class User(AbstractUser):
     verification_token_expiration = models.DateTimeField(blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True)
     verification_token_expiration = models.DateTimeField(blank=True, null=True)
+    
 
     def generate_verification_token(self):
         # Generate a unique verification token
@@ -36,14 +37,15 @@ class User(AbstractUser):
         return self.username
         
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
+    phone_number = models.CharField(max_length=12, blank=True)
     account_type = models.CharField(max_length=50, choices=[('User', 'User'), ('Agent', 'Agent')], default='User')
     image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-
+    
     def __str__(self):
-        return self.user.username
+        return self.username.username
     
     
 
