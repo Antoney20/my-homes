@@ -20,12 +20,14 @@ def index(request):
     properties = SubmitProperty.objects.all()
     user = request.user
     name='index page'
+    profile = Profile.objects.get(username=user)
     
     context = {
         'properties': properties,
         'user': user,
         'name': name,   
         'logged_in': True,  
+        'profile': profile
     }
     if user.is_authenticated:
         return render(request, 'myhome/index.html', context)
@@ -98,14 +100,27 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
- 
+@login_required
 def my_profile(request):
     user = request.user
-    profile = Profile.objects.get(username=user)
-    print("*************************")
-    print(profile)
-    return render(request, 'myhome/my_profile.html', {'profile': profile})   
+    email = request.user.email
+    name = "my-profile"
+    try:
+        profile = Profile.objects.get(username=user)
+    except Profile.DoesNotExist:
+        return HttpResponse('failed')
+    
+    context = {
+        'profile': profile,
+        'name': name,
+        'email': email,
+        'logged_in': True,
+    }
 
+    if user.is_authenticated:
+        return render(request, 'myhome/my_profile.html', context)
+    else:
+        return render(request, 'myhome/login.html')
 def update_profile(request):
     try:
         profile = request.user
