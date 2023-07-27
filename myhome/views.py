@@ -181,7 +181,7 @@ def property_details(request, SubmitProperty_id):
     
 #agent
 def agent_details(request, agent_id):
-    agent = get_object_or_404(User, id=agent_id)
+    agent = get_object_or_404(User,pk=agent_id )
     properties = SubmitProperty.objects.filter(user=agent)
     return render(request, 'myhome/agent.html', {'agent': agent, 'properties': properties})
 
@@ -189,17 +189,18 @@ def agent_details(request, agent_id):
 @login_required
 def agents(request):
     agents = User.objects.all()
-    print(agents)
+    
     agent_data = []
 
     for agent in agents:
         properties = SubmitProperty.objects.filter(user=agent)
         num_properties = properties.count()
+    
         
         agent_info = {
             'username': agent.username,
             'num_properties': num_properties,
-            
+            'agent_id': agent.id,
         }
         agent_data.append(agent_info)
 
@@ -211,5 +212,8 @@ def agents(request):
         context['logged_in'] = False
 
     return render(request, 'myhome/all_agents.html', context)
+
+
+
 
 

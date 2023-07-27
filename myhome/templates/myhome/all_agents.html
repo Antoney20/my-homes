@@ -10,7 +10,7 @@
             <h5 class="card-title">{{ agent.username }}</h5>
             <p class="card-text">Number of Properties: {{ agent.num_properties }}</p>
             <p class="card-text">Phone Number: {{ agent.phone_number }}</p>
-            <a href="">View Agent Properties</a>
+            <a href="{% url 'agent' agent_id %}">View Agent Properties</a>
         </div>
     </div>
 </div>
