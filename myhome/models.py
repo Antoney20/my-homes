@@ -1,20 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 import uuid
 from django.utils import timezone
 
 
 # Create your models here.
 
-class User(models.Model):
+class User(AbstractUser):
     username = models.CharField(max_length=150,unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     is_email_verified = models.BooleanField(default=False)
     verification_token = models.CharField(max_length=64, blank=True, null=True)
     verification_token_expiration = models.DateTimeField(blank=True, null=True)
-    def __str__(self):
-        return self.username
+    slug = models.SlugField(unique=True, blank=True)
     verification_token_expiration = models.DateTimeField(blank=True, null=True)
 
     def generate_verification_token(self):
@@ -27,6 +26,15 @@ class User(models.Model):
     def is_verification_token_valid(self):
         # Check if the verification token has expired
         return timezone.now() < self.verification_token_expiration
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = str(uuid.uuid4())
+        super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.username
+        
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=True)

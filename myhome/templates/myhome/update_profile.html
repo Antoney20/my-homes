@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <h1>Update Profile</h1>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action =" {% url 'update_profile' %}">
       {% csrf_token %}
       <div class="mb-3">
         <label for="first_name" class="form-label">First Name:</label>

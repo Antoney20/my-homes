@@ -47,6 +47,7 @@ def register(request):
         
                 # Create a new user object and saving him to the db
         user = User(username=username, email=email, password=password)
+        user.set_password(password)
         verification_token = user.generate_verification_token()
         user.save()
 
@@ -57,7 +58,7 @@ def register(request):
         recipient_list = [email]
         send_mail(subject, message, from_email, recipient_list)
 
-        return redirect('login')
+        return HttpResponse('Please check your email')
         
         return redirect('success')
     
@@ -71,7 +72,7 @@ def verify(request, verification_token):
         # Mark the user as verified
         user.is_email_verified = True
         user.save()
-        return render(request, 'myhome/index.html') 
+        return render(request, 'myhome/update_profile.html') 
     except User.DoesNotExist:
         return HttpResponse('Please register')
     return redirect('update_profile')
@@ -113,7 +114,7 @@ def update_profile(request):
         if image:
             profile.image = image
         profile.save()
-        return redirect('profile')
+        return redirect('index')
 
     return render(request, 'myhome/update_profile.html', {'profile': profile})
     
@@ -158,27 +159,36 @@ def property_details(request, SubmitProperty_id):
     
     
 #agent
-def agent(request, user_id):
-    agent = get_object_or_404(User, id=user_id)
+def agent_details(request, agent_id):
+    agent = get_object_or_404(User, id=agent_id)
     properties = SubmitProperty.objects.filter(user=agent)
-    context = {'agent': agent, 'properties': properties}
-    return render(request, 'myhome/agent.html', context)
+    return render(request, 'myhome/agent.html', {'agent': agent, 'properties': properties})
 
 #agents
-
+@login_required
 def agents(request):
     agents = User.objects.all()
+    print(agents)
     agent_data = []
 
     for agent in agents:
         properties = SubmitProperty.objects.filter(user=agent)
         num_properties = properties.count()
+        
         agent_info = {
             'username': agent.username,
-            
             'num_properties': num_properties,
-        
+            
         }
         agent_data.append(agent_info)
 
-    return render(request, 'myhome/all_agents.html', {'agents': agent_data})
+    context = {'agents': agent_data}
+
+    if request.user.is_authenticated:
+        context['logged_in'] = True
+    else:
+        context['logged_in'] = False
+
+    return render(request, 'myhome/all_agents.html', context)
+
+

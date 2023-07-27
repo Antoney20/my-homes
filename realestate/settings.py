@@ -139,7 +139,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 #default user model
 
-#AUTH_USER_MODEL = 'myhome.User'
+#
+AUTH_USER_MODEL = 'myhome.User'
 # Email backend credentials
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
