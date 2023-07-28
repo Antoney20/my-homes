@@ -21,18 +21,20 @@ def index(request):
     user = request.user
     name='index page'
     profile = Profile.objects.get(username=user)
-    
-    context = {
-        'properties': properties,
-        'user': user,
-        'name': name,   
-        'logged_in': True,  
-        'profile': profile
-    }
-    if user.is_authenticated:
-        return render(request, 'myhome/index.html', context)
-    else:
-        return render(request, 'myhome/index.html', {'properties': properties, 'logged_in': False})
+
+    try:
+        profile = Profile.objects.get(username=user)
+        # If the profile exists, redirect to the index page
+        return render(request, 'myhome/index.html', {
+            'properties': properties,
+            'user': user,
+            'name': name,
+            'logged_in': True,
+            'profile': profile
+        })
+    except Profile.DoesNotExist:
+        # If the profile does not exist, redirect to the update profile page
+        return redirect('update_profile')
     
 def register(request):
     if request.method == 'POST':
@@ -121,21 +123,25 @@ def my_profile(request):
         return render(request, 'myhome/my_profile.html', context)
     else:
         return render(request, 'myhome/login.html')
+@login_required
 def update_profile(request):
     try:
-        profile = request.user
-    except Profile.DoesNotExist:
-        profile = Profile(user=request.user)
+        profile = request.user.profile
+    except User.profile.RelatedObjectDoesNotExist:
+        # If the profile does not exist, create a new profile for the user
+        profile = Profile(username=request.user)
 
     if request.method == 'POST':
+        # Update the profile with data submitted in form.
         profile.first_name = request.POST.get('first_name', '')
         profile.last_name = request.POST.get('last_name', '')
+        profile.phone_number = request.POST.get('phone_number', '')
         profile.account_type = request.POST.get('account_type', '')
         image = request.FILES.get('image')
         if image:
             profile.image = image
         profile.save()
-        return redirect('index')
+        return redirect('index')  # Redirect to the index page after saving
 
     return render(request, 'myhome/update_profile.html', {'profile': profile})
     
