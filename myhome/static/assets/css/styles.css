@@ -1,14 +1,9 @@
-.preloader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #f1eeee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1; 
+
+.limit-lines {
+  max-height: 1.6em; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 body {
     min-height: 100vh;

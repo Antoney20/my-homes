@@ -118,21 +118,16 @@
     <!--footer-->
     <footer class="full-row bg-light py-4">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
+        <div class="row ">
+          <div class="mb-4 col-6 col-lg-3 col-sm-6 col-md-4 col-lg-2 col-xxl-2">
             <div class="footer-widget mb-4">
               <p class="pb-4 text-black bold ">Find your comfort with us.</p>
-              <div class="footer-widget media-widget mt-4 text-black hover-text-primary">
-                <a><img src="{% static 'assets/img/icon-facebook.svg' %}" style="margin-left:2%;"></a>
-                <img src="{% static 'assets/img/icon-instagram.svg' %}" style="margin-right: 2%;">
-                <img src="{% static 'assets/img/icon-twitter.svg' %}" style="margin-right: 2%;">
-                <img src="{% static 'assets/img/icon-youtube.svg' %}" style="margin-right:3%">
-              </div>
+
             </div>
             
 
           </div>
-          <div class="col-lg-8">
+          <div class="">
             <div class="row">
               <div class="col-md-4">
                 <div class="footer-widget footer-nav mb-4">
@@ -163,7 +158,12 @@
                     <li class="hover-text-primary"><i class="fas fa-map-marker-alt text-white mr-2 font-13 mt-1"></i>83, Chogoria</li>
                     <li class="hover-text-primary"><i class="fas fa-phone-alt text-white mr-2 font-13 mt-1"></i>+254 00000000000</li>
                     <li class="hover-text-primary"><i class="fas fa-phone-alt text-white mr-2 font-13 mt-1"></i>+254 0000000000</li>
-                    <li class="hover-text-primary"><i class="fas fa-envelope text-white mr-2 font-13 mt-1"></i>helpline01@gmail.com</li>
+                    <div class="footer-widget media-widget mt-4 text-black hover-text-primary">
+                      <a><img src="{% static 'assets/img/icon-facebook.svg' %}" style="margin-left:2%;"></a>
+                      <img src="{% static 'assets/img/icon-instagram.svg' %}" style="margin-right: 2%;">
+                      <img src="{% static 'assets/img/icon-twitter.svg' %}" style="margin-right: 2%;">
+                      <img src="{% static 'assets/img/icon-youtube.svg' %}" style="margin-right:3%">
+                    </div>
                   </ul>
                 </div>
               </div>
@@ -171,11 +171,11 @@
           </div>
         </div>
       </div>
-      <div class="container-fluid bg-dark">
+      <div class="bg-gray">
         <div class="container">
           <div class="row">
             <div class="col-sm-6">
-              <span class="text-white">&copy; Antony Web Design</span>
+              <span class="text-black bold vh-100">&copy; Antony Web Design</span>
             </div>
             <div class="col-sm-6">
               <ul class="line-menu text-white hover-text-primary float-right">
@@ -186,22 +186,7 @@
         </div>
       </div>
     </footer>
-     
-    <script>
-        // Function to hide the preloader when the image loads
-        function hidePreloader(card) {
-            var preloader = card.querySelector('.preloader');
-            preloader.style.display = 'none';
-        }
     
-        // Attaching 'load' event listener to all the images
-        var cardImages = document.querySelectorAll('.card-img-top');
-        cardImages.forEach(function (img) {
-            img.addEventListener('load', function () {
-                hidePreloader(img.parentElement);
-            });
-        });
-    </script>
     <script src="{% static 'assets/js/index.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
