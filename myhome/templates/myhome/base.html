@@ -14,18 +14,33 @@
     <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="home" viewBox="0 0 16 16">
+      <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+    </symbol>
+    <symbol id="speedometer2" viewBox="0 0 16 16">
+      <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+      <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+    </symbol>
+    <symbol id="table" viewBox="0 0 16 16">
+      <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+    </symbol>
+    <symbol id="notification" viewBox="0 0 16 16">
+      <path d="M8 0a1.5 1.5 0 0 0-1.5 1.5v1.75a4.5 4.5 0 0 1 3 4.214v1.036c0 .131.051.26.143.354l1.4 1.4a2 2 0 0 1-1.4 3.414h-3.486a2 2 0 0 1-1.4-3.414l1.4-1.4a.5.5 0 0 0 .143-.354v-1.036A4.5 4.5 0 0 1 6.5 3.25V1.5A1.5 1.5 0 0 0 5 0a1.5 1.5 0 0 0-1.5 1.5v1.75A6.5 6.5 0 0 0 1 9.25v3.768l-1.248 1.871a.5.5 0 0 0 .434.758H15.814a.5.5 0 0 0 .434-.758L14 13.018v-3.768A6.5 6.5 0 0 0 8.5 3.25V1.5A1.5 1.5 0 0 0 8 0zM8 2a.5.5 0 0 1 .5.5V3h-1V2.5a.5.5 0 0 1 .5-.5zm-4 7.5V9h8v.5A5.5 5.5 0 0 1 8 14.929a5.5 5.5 0 0 1-4-4.429z"/>
+    </symbol>
+
+  </svg>
 
      <!--nav bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'index' %}"">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Property</a>
@@ -71,39 +86,34 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        <a href="{% url 'index' %}" class="nav-link align-middle px-0">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                         <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                         <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">My Property</span></a>
+                           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                           <span class="ms-1 d-none d-sm-inline">My Property</span></a>
                     </li>
                     <li>
                         <a href="{% url 'my_profile' %}" class="nav-link px-0 align-middle">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#notification"/></svg>
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Notifications</span> </a>
                     </li>
                 </ul>
                 <hr>
-                <div class="dropdown">
-                    <a href="{% url 'my_profile' %}" class="d-flex align-items-center text-black text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <li>
+                    <a href="{% url 'my_profile' %}" class="d-flex align-items-center text-black text-decoration-none ">
                         <img src="{% if profile.image %}{{ profile.image.url }}{% else %}{% static 'assets/img/profilepic.png' %}{% endif %}"  width="30" height="30" class="rounded-circle" alt="user image">
                         <span class="d-none d-sm-inline mx-1">{{ request.user.username }}</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-large shadow">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
+                  </li>
             </div>
         </div>
         <div class="col py-3">
@@ -120,12 +130,10 @@
       <div class="container">
         <div class="row ">
           <div class="mb-4 col-6 col-lg-3 col-sm-6 col-md-4 col-lg-2 col-xxl-2">
-            <div class="footer-widget mb-4">
+            <div class="mb-2">
               <p class="pb-4 text-black bold ">Find your comfort with us.</p>
 
             </div>
-            
-
           </div>
           <div class="">
             <div class="row">

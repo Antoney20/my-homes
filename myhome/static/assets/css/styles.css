@@ -5,6 +5,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
